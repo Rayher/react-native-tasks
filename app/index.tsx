@@ -7,7 +7,7 @@ export default function Page() {
       <View style={styles.main}>
         <Text style={styles.title}>Hello</Text>        
         <Text style={styles.subtitle}>Welcome to main page</Text>
-        <br />
+        
         <Text style={styles.menuTitle}>Menu</Text>
         <Link href="test-01">
           <Text style={styles.menuItem}>Task 01</Text>
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 36,
     color: "#38434D",
+    marginBottom: 10
   },
   menuTitle: {
     fontSize: 27,

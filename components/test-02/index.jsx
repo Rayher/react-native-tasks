@@ -29,13 +29,11 @@ export const Test02 = () => {
       <Link href="/">
         <Text style={{ fontSize: 20, textDecorationLine: "underline" }}>Regresar</Text>
       </Link>
-      
-      <br />
+            
       <View style={styles.subContainer}>
-        <Text style={styles.title}>Swipe down to load other pokemon</Text>
-        <br />
+        <Text style={styles.title}>Swipe down to load other pokemon</Text>        
         <FlatList
-          data={data}
+          data={data}          
           renderItem={({ item }) => <Text style={styles.item}>{item.value}</Text>}
           keyExtractor={item => item.key}
           refreshControl={
@@ -68,15 +66,23 @@ const styles = StyleSheet.create({
     height: '100%',
     flexDirection: 'column',        
     justifyContent: 'flex-center',
-    alignItems: 'center'    
-  },
+    alignItems: 'center',
+    marginTop: 10
+  },  
   title:{
     fontSize: 25, 
-    fontWeight: "700"
+    fontWeight: "700",
+    marginBottom: 10
   },
   item: {
     padding: 5,
     fontSize: 20,
     height: 40,
+    width: 150,
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: 5,
+    borderColor: '#5567FF',
+    borderWidth: 3    
   },
 });

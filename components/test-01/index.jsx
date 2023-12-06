@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { getThePokemons } from '../../helpers/api';
-import { Loading } from '../../icons/LoadingAnimated';
 import { Link } from 'expo-router';
 
 export const Test01 = () => {
@@ -28,33 +27,15 @@ export const Test01 = () => {
   useEffect(() => getPokemons() , [])
 
   return(
-    <View 
-      style={{
-        display: 'flex',
-        width: '100vw',
-        height: '100vh',
-        flexDirection: 'column',        
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start'
-      }}
-    >
+    <View style={styles.container}>
       {loading ? 
-        <View style={{ display: "flex", width: "100%", height: "100%", justifyContent: "center"}}>
-          <Loading />
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator color='#5567FF' />
         </View>
       :
         <>
           {error &&
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                backgroundColor: '#FF9B55',
-                padding: 10,
-                borderRadius: 10,
-                width: '80%'
-              }}
-            >
+            <View style={styles.errorContainer}>
               <Text>An error occurred while loading data</Text>
               <Text style={{ color: '#000' }}>
                 <Text style={{ fontWeight: 700 }}>Server message:</Text> 
@@ -66,28 +47,17 @@ export const Test01 = () => {
             </View>
           }
           
-          <Link href="/"><Text style={{ fontSize: 20, textDecorationLine: "underline" }}>Regresar</Text></Link>
+          <Link href="/"><Text style={styles.returnButton}>Regresar</Text></Link>
 
-          <View 
-            style={{
-              display: 'flex',
-              width: '100%',
-              height: '100%',
-              flexDirection: 'column',        
-              justifyContent: 'flex-center',
-              alignItems: 'center'
-            }}
-          >
-          <Text style={{ fontSize: 25, fontWeight: "700"}}>Lista de Pokemons</Text>
-          <br />
+          <View style={styles.subContainer}>
+          <Text style={styles.title}>Lista de Pokemons</Text>          
           {pokemons?.map(pokemon => (
+            <>            
             <Text 
               key={pokemon.name}
-              style={{
-                fontSize: 20,
-                marginBottom: 5
-              }}
+              style={styles.item}
             >{pokemon.name}</Text>
+            </>
           ))}
           </View>
         </>
@@ -95,3 +65,54 @@ export const Test01 = () => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    width: '100vw',
+    height: '100vh',
+    flexDirection: 'column',        
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start'   
+  },
+  errorContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#FF9B55',
+    padding: 10,
+    borderRadius: 10,
+    width: '80%'
+  },
+  loadingContainer:{
+    display: "flex", 
+    width: "100%", 
+    height: "100%", 
+    justifyContent: "center"
+  },
+  subContainer: {
+    display: 'flex',
+    width: '100%',
+    height: '100%',
+    flexDirection: 'column',        
+    justifyContent: 'flex-center',
+    alignItems: 'center'
+  },  
+  title:{
+    fontSize: 25, 
+    fontWeight: "700", 
+    marginBottom: 10
+  },
+  item: {
+    fontSize: 20,
+    width: 150,
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: 5,
+    borderColor: '#5567FF',
+    borderWidth: 3
+  },
+  returnButton:{
+    fontSize: 20,
+    textDecorationLine: "underline"    
+  }
+});
